@@ -1,11 +1,16 @@
 package ua.QRescue.dto;
 
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DataDTO {
-    @Column(name = "number_residents")
     private int numberResidents;
 
-    @Column(name = "immobility_residents")
     private int immobilityResidents;
 }

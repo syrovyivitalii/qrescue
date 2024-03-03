@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OsbbHeadService {
+public class HeadOsbbService {
     private final HeadOsbbRepository headOsbbRepository;
 
-    public OsbbHeadService(HeadOsbbRepository headOsbbRepository) {
+    public HeadOsbbService(HeadOsbbRepository headOsbbRepository) {
         this.headOsbbRepository = headOsbbRepository;
     }
 

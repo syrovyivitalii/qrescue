@@ -6,10 +6,13 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "head_osbb")
-@Data
+@Getter
+@Setter
 public class HeadOsbb {
     @Id
     @Column(name = "id")
@@ -41,10 +44,12 @@ public class HeadOsbb {
     public HeadOsbb() {
     }
 
-    public HeadOsbb(String name, String lastname, String phone, String email) {
+    public HeadOsbb(int id, String name, String lastname, String phone, String email, Osbb osbb) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.phone = phone;
         this.email = email;
+        this.osbb = osbb;
     }
 }

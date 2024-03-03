@@ -10,7 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ua.QRescue.dto.HeadOsbbDTO;
 import ua.QRescue.models.HeadOsbb;
-import ua.QRescue.service.OsbbHeadService;
+import ua.QRescue.service.HeadOsbbService;
 import ua.QRescue.util.ErrorResponse;
 import ua.QRescue.util.NotCreatedException;
 import ua.QRescue.util.NotFoundException;
@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/headOsbb")
 public class HeadOsbbController {
-    private final OsbbHeadService headOsbbService;
+    private final HeadOsbbService headOsbbService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public HeadOsbbController(OsbbHeadService headOsbbService, ModelMapper modelMapper) {
+    public HeadOsbbController(HeadOsbbService headOsbbService, ModelMapper modelMapper) {
         this.headOsbbService = headOsbbService;
         this.modelMapper = modelMapper;
     }

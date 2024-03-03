@@ -1,10 +1,13 @@
 package ua.QRescue.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "data")
-@lombok.Data
+@Getter
+@Setter
 public class Data {
     @Id
     @Column(name = "id")
@@ -12,10 +15,10 @@ public class Data {
     private int id;
 
     @Column(name = "number_residents")
-    private int numberResidents;
+    private Integer numberResidents;
 
     @Column(name = "immobility_residents")
-    private int immobilityResidents;
+    private Integer immobilityResidents;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "id")
@@ -23,8 +26,10 @@ public class Data {
     public Data() {
     }
 
-    public Data(int numberResidents, int immobilityResidents) {
+    public Data(int id, Integer numberResidents, Integer immobilityResidents, Osbb osbb) {
+        this.id = id;
         this.numberResidents = numberResidents;
         this.immobilityResidents = immobilityResidents;
+        this.osbb = osbb;
     }
 }

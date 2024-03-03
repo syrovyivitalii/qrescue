@@ -2,11 +2,13 @@ package ua.QRescue.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "osbb")
-@Data
+@Getter
+@Setter
 public class Osbb {
 
     @Id
@@ -34,13 +36,9 @@ public class Osbb {
     public Osbb() {
     }
 
-    public Osbb(String login, String password, String address) {
-        this.login = login;
-        this.password = password;
-        this.address = address;
-    }
 
-    public Osbb(String login, String password, String address, HeadOsbb headOSBB, ua.QRescue.models.Data data) {
+    public Osbb(int id, String login, String password, String address, HeadOsbb headOSBB, Data data) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.address = address;
