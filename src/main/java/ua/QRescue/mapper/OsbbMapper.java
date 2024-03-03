@@ -1,7 +1,6 @@
 package ua.QRescue.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import ua.QRescue.dto.OsbbDTO;
 import ua.QRescue.models.Osbb;
 
@@ -16,4 +15,8 @@ public interface OsbbMapper {
     @Mapping(target = "password", source = "password")
     @Mapping(target = "address", source = "address")
     OsbbDTO mapToOsbbDTO(Osbb osbb);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void patchMerge(OsbbDTO osbbDTO, @MappingTarget Osbb osbb);
+
 }
