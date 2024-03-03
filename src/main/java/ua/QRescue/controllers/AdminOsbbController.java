@@ -1,7 +1,6 @@
 package ua.QRescue.controllers;
 
 import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +31,14 @@ public class AdminOsbbController {
         this.mappingUtils = mappingUtils;
     }
     @GetMapping
-    public List<OsbbDTO> getAllOsbb(){
-        return osbbAdminService.findAll().stream().map(mappingUtils::convertToOsbbDTO).collect(Collectors.toList());
+    public ResponseEntity<List<OsbbDTO>> getAllOsbb(){
+        var allOsbb = osbbAdminService.findAll();
+        return ResponseEntity.ok(allOsbb);
     }
     @GetMapping("/{id}")
-    public OsbbDTO getOsbb(@PathVariable("id") int id){
-        return mappingUtils.convertToOsbbDTO(osbbAdminService.findOne(id));
+    public ResponseEntity<OsbbDTO> getOsbb(@PathVariable("id") int id){
+        var getOsbb = osbbAdminService.findOne(id);
+        return ResponseEntity.ok(getOsbb);
     }
 
     @PostMapping

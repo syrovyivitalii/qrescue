@@ -11,8 +11,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "head_osbb")
-@Getter
-@Setter
 public class HeadOsbb {
     @Id
     @Column(name = "id")
@@ -50,6 +48,54 @@ public class HeadOsbb {
         this.lastname = lastname;
         this.phone = phone;
         this.email = email;
+        this.osbb = osbb;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Osbb getOsbb() {
+        return osbb;
+    }
+
+    public void setOsbb(Osbb osbb) {
         this.osbb = osbb;
     }
 }

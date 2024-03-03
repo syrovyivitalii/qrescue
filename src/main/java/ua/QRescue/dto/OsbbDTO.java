@@ -1,18 +1,38 @@
 package ua.QRescue.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
+@ToString
+@EqualsAndHashCode
 public class OsbbDTO{
     private String login;
 
     private String password;
 
     private String address;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

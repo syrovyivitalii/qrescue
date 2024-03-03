@@ -1,10 +1,12 @@
 package ua.QRescue.service;
 
-import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import ua.QRescue.dto.OsbbDTO;
+import ua.QRescue.mapper.OsbbMapper;
 import ua.QRescue.models.Osbb;
 import ua.QRescue.repositories.OsbbRepository;
 import ua.QRescue.util.NotFoundException;
@@ -13,20 +15,27 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class AdminOsbbService {
     private final OsbbRepository osbbRepository;
-
-    public AdminOsbbService(OsbbRepository osbbRepository) {
+    private final OsbbMapper osbbMapper;
+    @Autowired
+    public AdminOsbbService(OsbbRepository osbbRepository, OsbbMapper osbbMapper) {
         this.osbbRepository = osbbRepository;
+        this.osbbMapper = osbbMapper;
     }
-    public List<Osbb> findAll(){
-        return osbbRepository.findAll();
+
+
+    public List<OsbbDTO> findAll(){
+        var allOsbb = osbbRepository.findAll();
+        return allOsbb.stream().map(osbbMapper::mapToOsbbDTO).collect(Collectors.toList());
     }
-    public Osbb findOne(int id){
-        Optional<Osbb> foundOsbb = osbbRepository.findById(id);
-        return foundOsbb.orElseThrow(NotFoundException::new);
+    public OsbbDTO findOne(int id){
+        var osbbById = osbbRepository.findById(id).orElseThrow(NotFoundException::new);
+        return osbbMapper.mapToOsbbDTO(osbbById);
     }
     @Transactional
     public void save(Osbb osbb){

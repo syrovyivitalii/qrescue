@@ -1,14 +1,10 @@
 package ua.QRescue.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
+@ToString
+@EqualsAndHashCode
 public class HeadOsbbDTO {
 
     private String name;
@@ -19,4 +15,35 @@ public class HeadOsbbDTO {
 
     private String email;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
