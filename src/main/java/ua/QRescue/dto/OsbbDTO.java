@@ -10,7 +10,6 @@ public class OsbbDTO{
 
     private String password;
 
-    private String address;
 
     public String getLogin() {
         return login;
@@ -28,11 +27,4 @@ public class OsbbDTO{
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }

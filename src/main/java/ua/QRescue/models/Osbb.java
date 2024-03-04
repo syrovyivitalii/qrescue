@@ -13,15 +13,12 @@ public class Osbb {
     private int id;
 
     @Column(name = "login")
-    @NotEmpty(message = "ОСББ повинно мати назву")
+    @NotEmpty(message = "login must be entered")
     private String login;
 
     @Column(name = "password")
+    @NotEmpty(message = "password must be entered")
     private String password;
-
-    @Column(name = "address")
-    @NotEmpty(message = "ОСББ повинно мати адресу")
-    private String address;
 
     @OneToOne(mappedBy = "osbb")
     private HeadOsbb headOSBB;
@@ -31,11 +28,11 @@ public class Osbb {
 
     public Osbb() {
     }
-    public Osbb(int id, String login, String password, String address, HeadOsbb headOSBB, Data data) {
+
+    public Osbb(int id, String login, String password, HeadOsbb headOSBB, Data data) {
         this.id = id;
         this.login = login;
         this.password = password;
-        this.address = address;
         this.headOSBB = headOSBB;
         this.data = data;
     }
@@ -62,14 +59,6 @@ public class Osbb {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public HeadOsbb getHeadOSBB() {

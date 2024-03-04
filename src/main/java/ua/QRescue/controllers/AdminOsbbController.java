@@ -8,14 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.QRescue.dto.OsbbDTO;
-import ua.QRescue.models.Osbb;
 import ua.QRescue.service.AdminOsbbServiceImpl;
 import ua.QRescue.util.ErrorResponse;
 import ua.QRescue.util.NotCreatedException;
 import ua.QRescue.util.NotFoundException;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/osbb/administrating")
@@ -42,7 +40,6 @@ public class AdminOsbbController {
         var responseDto = osbbAdminService.save(osbbDTO,bindingResult);
         return ResponseEntity.ok(responseDto);
     }
-    //todo add dto
     @PatchMapping("/{id}")
     public ResponseEntity<OsbbDTO> updateOsbb(@PathVariable(value = "id") int id, @RequestBody OsbbDTO osbbDTO){
         var responseDto = osbbAdminService.updateOsbb(id,osbbDTO);

@@ -8,12 +8,10 @@ import ua.QRescue.models.Osbb;
 public interface OsbbMapper {
     @Mapping(target = "login", source = "login")
     @Mapping(target = "password", source = "password")
-    @Mapping(target = "address", source = "address")
     Osbb mapToOsbb(OsbbDTO osbbDTO);
 
     @Mapping(target = "login", source = "login")
     @Mapping(target = "password", source = "password")
-    @Mapping(target = "address", source = "address")
     OsbbDTO mapToOsbbDTO(Osbb osbb);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
