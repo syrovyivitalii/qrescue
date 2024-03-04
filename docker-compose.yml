@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:13.3
+    container_name: qresque-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=qresque
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - D:\Volumes:/var/lib/postgresql/data
+
+  app:
+    platform: linux/amd64
+    container_name: app-resque
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE-HOST-ENV=db:5432
+      - DATABASE-NAME-ENV=qresque
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - db
+volumes:
+  pgdata:
