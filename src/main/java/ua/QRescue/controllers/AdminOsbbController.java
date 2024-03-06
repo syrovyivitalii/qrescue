@@ -12,11 +12,13 @@ import ua.QRescue.service.AdminOsbbServiceImpl;
 import ua.QRescue.util.ErrorResponse;
 import ua.QRescue.util.NotCreatedException;
 import ua.QRescue.util.NotFoundException;
+import ua.QRescue.util.UserAlreadyExists;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/osbb/administrating")
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/osbb/admin")
 public class AdminOsbbController {
     private final AdminOsbbServiceImpl osbbAdminService;
 
@@ -29,9 +31,9 @@ public class AdminOsbbController {
         var allOsbb = osbbAdminService.findAll();
         return ResponseEntity.ok(allOsbb);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<OsbbDTO> getOsbb(@PathVariable("id") int id){
-        var getOsbb = osbbAdminService.findOne(id);
+    @GetMapping("/{login}")
+    public ResponseEntity<OsbbDTO> getOsbb(@PathVariable("login") String login){
+        var getOsbb = osbbAdminService.findOneByLogin(login);
         return ResponseEntity.ok(getOsbb);
     }
 
@@ -40,15 +42,15 @@ public class AdminOsbbController {
         var responseDto = osbbAdminService.save(osbbDTO,bindingResult);
         return ResponseEntity.ok(responseDto);
     }
-    @PatchMapping("/{id}")
-    public ResponseEntity<OsbbDTO> updateOsbb(@PathVariable(value = "id") int id, @RequestBody OsbbDTO osbbDTO){
-        var responseDto = osbbAdminService.updateOsbb(id,osbbDTO);
+    @PatchMapping("/{login}")
+    public ResponseEntity<OsbbDTO> updateOsbb(@PathVariable(value = "login") String login, @RequestBody OsbbDTO osbbDTO){
+        var responseDto = osbbAdminService.updateOsbb(login,osbbDTO);
         return ResponseEntity.ok(responseDto);
     }
     @Operation(description = "Delete osbb from db")
-    @DeleteMapping("/{id}")
-    public void deleteOsbb(@PathVariable(value = "id") int id){
-        osbbAdminService.deleteOsbb(id);
+    @DeleteMapping("/{login}")
+    public void deleteOsbb(@PathVariable(value = "login") String login){
+        osbbAdminService.deleteOsbb(login);
     }
     @ExceptionHandler
     private ResponseEntity<ErrorResponse> handleException (NotFoundException e){
@@ -66,5 +68,12 @@ public class AdminOsbbController {
         );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
+    @ExceptionHandler
+    private ResponseEntity<ErrorResponse> handleException (UserAlreadyExists e){
+        ErrorResponse response = new ErrorResponse(
+                "User already exists",
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

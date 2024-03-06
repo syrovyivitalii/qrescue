@@ -9,8 +9,8 @@ import java.util.Map;
 
 public interface AdminOsbbService {
     List<OsbbDTO> findAll();
-    OsbbDTO findOne(int id);
+    OsbbDTO findOneByLogin(String login);
     OsbbDTO save(OsbbDTO osbbDTO, BindingResult bindingResult);
-    OsbbDTO updateOsbb(int id, OsbbDTO osbbDTO);
-    void deleteOsbb(int id);
+    OsbbDTO updateOsbb(String login, OsbbDTO osbbDTO);
+    void deleteOsbb(String login);
 }

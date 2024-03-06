@@ -10,7 +10,6 @@ public class OsbbDTO{
 
     private String password;
 
-
     public String getLogin() {
         return login;
     }

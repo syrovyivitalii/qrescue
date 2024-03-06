@@ -11,11 +11,8 @@ public class Data {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "number_residents")
-    private Integer numberResidents;
-
-    @Column(name = "immobility_residents")
-    private Integer immobilityResidents;
+    @Column(name = "address")
+    private String address;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "id")
@@ -23,10 +20,9 @@ public class Data {
     public Data() {
     }
 
-    public Data(int id, Integer numberResidents, Integer immobilityResidents, Osbb osbb) {
+    public Data(int id, String address, Osbb osbb) {
         this.id = id;
-        this.numberResidents = numberResidents;
-        this.immobilityResidents = immobilityResidents;
+        this.address = address;
         this.osbb = osbb;
     }
 
@@ -38,20 +34,12 @@ public class Data {
         this.id = id;
     }
 
-    public Integer getNumberResidents() {
-        return numberResidents;
+    public String getAddress() {
+        return address;
     }
 
-    public void setNumberResidents(Integer numberResidents) {
-        this.numberResidents = numberResidents;
-    }
-
-    public Integer getImmobilityResidents() {
-        return immobilityResidents;
-    }
-
-    public void setImmobilityResidents(Integer immobilityResidents) {
-        this.immobilityResidents = immobilityResidents;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Osbb getOsbb() {

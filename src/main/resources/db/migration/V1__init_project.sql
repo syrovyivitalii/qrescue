@@ -22,8 +22,8 @@ CREATE FUNCTION public.create_head_osbb_data() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
-    INSERT INTO head_osbb (id_osbb) VALUES (NEW.id);
-    INSERT INTO data (id) VALUES (NEW.id);
+INSERT INTO head_osbb (id_osbb) VALUES (NEW.id);
+INSERT INTO data (id) VALUES (NEW.id);
 RETURN NEW;
 END;
 $$;

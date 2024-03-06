@@ -1,10 +1,10 @@
 package ua.QRescue.service;
 
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import ua.QRescue.dto.OsbbDTO;
@@ -13,10 +13,9 @@ import ua.QRescue.models.Osbb;
 import ua.QRescue.repositories.OsbbRepository;
 import ua.QRescue.util.NotCreatedException;
 import ua.QRescue.util.NotFoundException;
+import ua.QRescue.util.UserAlreadyExists;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -36,36 +35,42 @@ public class AdminOsbbServiceImpl implements AdminOsbbService{
         var allOsbb = osbbRepository.findAll();
         return allOsbb.stream().map(osbbMapper::mapToOsbbDTO).collect(Collectors.toList());
     }
-    public OsbbDTO findOne(int id){
-        var osbbById = osbbRepository.findById(id).orElseThrow(NotFoundException::new);
+    public OsbbDTO findOneByLogin(String login){
+        var osbbById = osbbRepository.findByLogin(login).orElseThrow(NotFoundException::new);
         return osbbMapper.mapToOsbbDTO(osbbById);
     }
     @Transactional
     public OsbbDTO save(OsbbDTO osbbDTO, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            StringBuilder errorMessage = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors){
-                errorMessage.append(error.getField())
-                        .append(("-")).append(error.getDefaultMessage())
-                        .append(";");
-
-            }
-            throw  new NotCreatedException(errorMessage.toString());
+            handleValidationErrors(bindingResult);
         }
         var osbb = osbbMapper.mapToOsbb(osbbDTO);
+        osbbRepository.findByLogin(osbb.getLogin())
+                .ifPresent(osbbPresent -> {
+                    throw new UserAlreadyExists();
+                });
         var savedOsbb = osbbRepository.save(osbb);
         return osbbMapper.mapToOsbbDTO(savedOsbb);
     }
     @Transactional
-    public OsbbDTO updateOsbb(int id, OsbbDTO osbbDTO){
-        var osbbById = osbbRepository.findById(id).orElseThrow(NotFoundException::new);
-        osbbMapper.patchMerge(osbbDTO, osbbById);
-        var putOsbb = osbbRepository.save(osbbById);
+    public OsbbDTO updateOsbb(String login, OsbbDTO osbbDTO){
+        var osbbByLogin = osbbRepository.findByLogin(login).orElseThrow(NotFoundException::new);
+        osbbMapper.patchMerge(osbbDTO, osbbByLogin);
+        var putOsbb = osbbRepository.save(osbbByLogin);
         return osbbMapper.mapToOsbbDTO(putOsbb);
     }
+
     @Transactional
-    public void deleteOsbb(int id){
-        osbbRepository.deleteById(id);
+    public void deleteOsbb(String login){
+        osbbRepository.deleteByLogin(login);
+    }
+    private ValidationException handleValidationErrors(BindingResult bindingResult) {
+        StringBuilder errorMessage = new StringBuilder();
+        for (FieldError error : bindingResult.getFieldErrors()) {
+            errorMessage.append(error.getField())
+                    .append("-").append(error.getDefaultMessage())
+                    .append(";");
+        }
+        return new ValidationException(errorMessage.toString());
     }
 }
