@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.QRescue.dto.OsbbDTO;
@@ -27,11 +28,13 @@ public class AdminOsbbController {
         this.osbbAdminService = osbbAdminService;
     }
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<OsbbDTO>> getAllOsbb(){
         var allOsbb = osbbAdminService.findAll();
         return ResponseEntity.ok(allOsbb);
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<OsbbDTO> getOsbb(@PathVariable("id") int id){
         var getOsbb = osbbAdminService.findOne(id);
         return ResponseEntity.ok(getOsbb);

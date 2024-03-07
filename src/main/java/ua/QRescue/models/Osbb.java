@@ -12,7 +12,7 @@ public class Osbb {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "login")
+    @Column(name = "login",unique = true)
     @NotEmpty(message = "login must be entered")
     private String login;
 
