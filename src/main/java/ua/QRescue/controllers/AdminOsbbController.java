@@ -31,9 +31,9 @@ public class AdminOsbbController {
         var allOsbb = osbbAdminService.findAll();
         return ResponseEntity.ok(allOsbb);
     }
-    @GetMapping("/{login}")
-    public ResponseEntity<OsbbDTO> getOsbb(@PathVariable("login") String login){
-        var getOsbb = osbbAdminService.findOneByLogin(login);
+    @GetMapping("/{id}")
+    public ResponseEntity<OsbbDTO> getOsbb(@PathVariable("id") int id){
+        var getOsbb = osbbAdminService.findOne(id);
         return ResponseEntity.ok(getOsbb);
     }
 
@@ -42,15 +42,15 @@ public class AdminOsbbController {
         var responseDto = osbbAdminService.save(osbbDTO,bindingResult);
         return ResponseEntity.ok(responseDto);
     }
-    @PatchMapping("/{login}")
-    public ResponseEntity<OsbbDTO> updateOsbb(@PathVariable(value = "login") String login, @RequestBody OsbbDTO osbbDTO){
-        var responseDto = osbbAdminService.updateOsbb(login,osbbDTO);
+    @PatchMapping("/{id}")
+    public ResponseEntity<OsbbDTO> updateOsbb(@PathVariable(value = "id") int id, @RequestBody OsbbDTO osbbDTO){
+        var responseDto = osbbAdminService.updateOsbb(id,osbbDTO);
         return ResponseEntity.ok(responseDto);
     }
     @Operation(description = "Delete osbb from db")
-    @DeleteMapping("/{login}")
-    public void deleteOsbb(@PathVariable(value = "login") String login){
-        osbbAdminService.deleteOsbb(login);
+    @DeleteMapping("/{id}")
+    public void deleteOsbb(@PathVariable(value = "id") int id){
+        osbbAdminService.deleteOsbb(id);
     }
     @ExceptionHandler
     private ResponseEntity<ErrorResponse> handleException (NotFoundException e){

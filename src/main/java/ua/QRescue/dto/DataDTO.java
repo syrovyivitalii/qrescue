@@ -6,23 +6,22 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class DataDTO {
-    private int numberResidents;
+    private int id;
+    private String address;
 
-    private int immobilityResidents;
-
-    public int getNumberResidents() {
-        return numberResidents;
+    public String getAddress() {
+        return address;
     }
 
-    public void setNumberResidents(int numberResidents) {
-        this.numberResidents = numberResidents;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getImmobilityResidents() {
-        return immobilityResidents;
+    public int getId() {
+        return id;
     }
 
-    public void setImmobilityResidents(int immobilityResidents) {
-        this.immobilityResidents = immobilityResidents;
+    public void setId(int id) {
+        this.id = id;
     }
 }

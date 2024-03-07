@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface OsbbRepository extends JpaRepository<Osbb,Integer> {
     @Modifying(clearAutomatically = true)
-    @Query(value = "Delete from Osbb c WHERE c.login=:login")
-    void deleteByLogin(@Param("login") String login);
+    @Query(value = "Delete from Osbb c WHERE c.id=:id")
+    void deleteById(@Param("id") int id);
 
     Optional<Osbb> findByLogin(String login);
 }

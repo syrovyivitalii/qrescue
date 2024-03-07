@@ -6,6 +6,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class OsbbDTO{
+    private int id;
     private String login;
 
     private String password;
@@ -26,4 +27,11 @@ public class OsbbDTO{
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

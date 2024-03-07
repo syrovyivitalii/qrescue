@@ -35,8 +35,8 @@ public class AdminOsbbServiceImpl implements AdminOsbbService{
         var allOsbb = osbbRepository.findAll();
         return allOsbb.stream().map(osbbMapper::mapToOsbbDTO).collect(Collectors.toList());
     }
-    public OsbbDTO findOneByLogin(String login){
-        var osbbById = osbbRepository.findByLogin(login).orElseThrow(NotFoundException::new);
+    public OsbbDTO findOne(int id){
+        var osbbById = osbbRepository.findById(id).orElseThrow(NotFoundException::new);
         return osbbMapper.mapToOsbbDTO(osbbById);
     }
     @Transactional
@@ -53,16 +53,16 @@ public class AdminOsbbServiceImpl implements AdminOsbbService{
         return osbbMapper.mapToOsbbDTO(savedOsbb);
     }
     @Transactional
-    public OsbbDTO updateOsbb(String login, OsbbDTO osbbDTO){
-        var osbbByLogin = osbbRepository.findByLogin(login).orElseThrow(NotFoundException::new);
-        osbbMapper.patchMerge(osbbDTO, osbbByLogin);
-        var putOsbb = osbbRepository.save(osbbByLogin);
+    public OsbbDTO updateOsbb(int id, OsbbDTO osbbDTO){
+        var osbbById = osbbRepository.findById(id).orElseThrow(NotFoundException::new);
+        osbbMapper.patchMerge(osbbDTO, osbbById);
+        var putOsbb = osbbRepository.save(osbbById);
         return osbbMapper.mapToOsbbDTO(putOsbb);
     }
 
     @Transactional
-    public void deleteOsbb(String login){
-        osbbRepository.deleteByLogin(login);
+    public void deleteOsbb(int id){
+        osbbRepository.deleteById(id);
     }
     private ValidationException handleValidationErrors(BindingResult bindingResult) {
         StringBuilder errorMessage = new StringBuilder();
