@@ -67,13 +67,13 @@ public class AdminOsbbServiceImpl implements AdminOsbbService{
     public void deleteOsbb(int id){
         osbbRepository.deleteById(id);
     }
-    private ValidationException handleValidationErrors(BindingResult bindingResult) {
+    private void handleValidationErrors(BindingResult bindingResult) {
         StringBuilder errorMessage = new StringBuilder();
         for (FieldError error : bindingResult.getFieldErrors()) {
             errorMessage.append(error.getField())
                     .append("-").append(error.getDefaultMessage())
                     .append(";");
         }
-        return new ValidationException(errorMessage.toString());
+        throw new ValidationException(errorMessage.toString());
     }
 }

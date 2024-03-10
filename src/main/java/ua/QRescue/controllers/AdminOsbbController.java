@@ -27,6 +27,7 @@ public class AdminOsbbController {
     public AdminOsbbController(AdminOsbbServiceImpl osbbAdminService) {
         this.osbbAdminService = osbbAdminService;
     }
+
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<OsbbDTO>> getAllOsbb(){
@@ -41,17 +42,20 @@ public class AdminOsbbController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<OsbbDTO> save (@RequestBody @Valid OsbbDTO osbbDTO, BindingResult bindingResult){
         var responseDto = osbbAdminService.save(osbbDTO,bindingResult);
         return ResponseEntity.ok(responseDto);
     }
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<OsbbDTO> updateOsbb(@PathVariable(value = "id") int id, @RequestBody OsbbDTO osbbDTO){
         var responseDto = osbbAdminService.updateOsbb(id,osbbDTO);
         return ResponseEntity.ok(responseDto);
     }
     @Operation(description = "Delete osbb from db")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteOsbb(@PathVariable(value = "id") int id){
         osbbAdminService.deleteOsbb(id);
     }

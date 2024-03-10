@@ -19,8 +19,22 @@ public class MyOsbbDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(() -> osbb.getLogin().equals("admin") ? "ROLE_ADMIN" : "ROLE_USER");
+        if (isAdmin(osbb.getLogin())) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        // Log the granted authorities
+        System.out.println("Granted authorities: " + authorities);
         return authorities;
+    }
+
+
+    // Method to check if the user is an admin
+    private boolean isAdmin(String login) {
+        // You can query the database or check against a predefined list of admin usernames
+        // For simplicity, let's assume the admin username is "admin"
+        return "admin".equals(login);
     }
 
     @Override
