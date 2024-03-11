@@ -15,26 +15,26 @@ public class Data {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "numResidents")
-    private int numResidents;
+    @Column(name = "numresidents")
+    private Integer numResidents;
 
-    @Column(name = "residentsWithDisabilities")
+    @Column(name = "residentswithdisabilities")
     private String residentsWithDisabilities;
 
-    @Column(name = "emergencyExits")
+    @Column(name = "emergencyexits")
     private String emergencyExits;
 
-    @Column(name = "fireEquipment")
+    @Column(name = "fireequipment")
     private String fireEquipment;
 
-    @Column(name = "gasSupply")
+    @Column(name = "gassupply")
     private String gasSupply;
 
 
-    @Column(name = "electricitySupply")
+    @Column(name = "electricitysupply")
     private String electricitySupply;
 
-    @Column(name = "waterSupply")
+    @Column(name = "watersupply")
     private String waterSupply;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -44,7 +44,7 @@ public class Data {
     public Data() {
     }
 
-    public Data(int id, String address, int numResidents, String residentsWithDisabilities, String emergencyExits, String fireEquipment, String gasSupply, String electricitySupply, String waterSupply, Osbb osbb) {
+    public Data(int id, String address, Integer numResidents, String residentsWithDisabilities, String emergencyExits, String fireEquipment, String gasSupply, String electricitySupply, String waterSupply, Osbb osbb) {
         this.id = id;
         this.address = address;
         this.numResidents = numResidents;
@@ -73,19 +73,16 @@ public class Data {
         this.address = address;
     }
 
-    public Osbb getOsbb() {
-        return osbb;
+    public Integer getNumResidents() {
+        if (numResidents != null) {
+            return numResidents.intValue();
+        } else {
+            return 0; // Or any default value you prefer
+        }
     }
 
-    public void setOsbb(Osbb osbb) {
-        this.osbb = osbb;
-    }
-
-    public void setNumResidents(int numResidents) {
-    }
-
-    public int getNumResidents() {
-        return numResidents;
+    public void setNumResidents(Integer numResidents) {
+        this.numResidents = numResidents;
     }
 
     public String getResidentsWithDisabilities() {
@@ -134,5 +131,13 @@ public class Data {
 
     public void setWaterSupply(String waterSupply) {
         this.waterSupply = waterSupply;
+    }
+
+    public Osbb getOsbb() {
+        return osbb;
+    }
+
+    public void setOsbb(Osbb osbb) {
+        this.osbb = osbb;
     }
 }
