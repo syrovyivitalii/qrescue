@@ -1,5 +1,6 @@
 package ua.QRescue.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -21,9 +22,11 @@ public class Osbb {
     private String password;
 
     @OneToOne(mappedBy = "osbb")
+    @JsonIgnore
     private HeadOsbb headOSBB;
 
     @OneToOne(mappedBy = "osbb")
+    @JsonIgnore
     private ua.QRescue.models.Data data;
 
     public Osbb() {

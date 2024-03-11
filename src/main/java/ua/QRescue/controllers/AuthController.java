@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.QRescue.config.MyOsbbDetails;
 
 import javax.crypto.SecretKey;
 import java.util.HashMap;
@@ -40,14 +41,17 @@ public class AuthController {
     }
 
     private String generateToken(String username) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        MyOsbbDetails userDetails = (MyOsbbDetails) userDetailsService.loadUserByUsername(username);
         List<String> authorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        int userId = userDetails.getUserId(); // get user ID from userDetails
+
         // Generate token using the secret key
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userId", userId) // Include user ID in the token
                 .claim("authorities", authorities) // Include authorities in the token
                 .claim("role", authorities.contains("ROLE_ADMIN") ? "admin" : "user") // Include role in the token
                 .signWith(secretKey) // Use the injected secretKey
@@ -77,6 +81,7 @@ public class AuthController {
                 Claims claims = claimsJws.getBody();
 
                 Map<String, String> response = new HashMap<>();
+                response.put("userId", claims.get("userId").toString());
                 response.put("token", token);
                 response.put("message", "Login successful!");
                 response.put("role", (String) claims.get("role")); // Include role in the response

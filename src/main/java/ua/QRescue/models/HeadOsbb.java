@@ -1,5 +1,6 @@
 package ua.QRescue.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -31,8 +32,11 @@ public class HeadOsbb {
     @Email(message = "Пошту введено не коректно")
     private String email;
 
+
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_osbb", referencedColumnName = "id")
+    @JsonIgnore
     private Osbb osbb;
 
     public HeadOsbb() {

@@ -1,5 +1,6 @@
 package ua.QRescue.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -14,15 +15,45 @@ public class Data {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "numResidents")
+    private int numResidents;
+
+    @Column(name = "residentsWithDisabilities")
+    private String residentsWithDisabilities;
+
+    @Column(name = "emergencyExits")
+    private String emergencyExits;
+
+    @Column(name = "fireEquipment")
+    private String fireEquipment;
+
+    @Column(name = "gasSupply")
+    private String gasSupply;
+
+
+    @Column(name = "electricitySupply")
+    private String electricitySupply;
+
+    @Column(name = "waterSupply")
+    private String waterSupply;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", referencedColumnName = "id")
+    @JsonIgnore
     private Osbb osbb;
     public Data() {
     }
 
-    public Data(int id, String address, Osbb osbb) {
+    public Data(int id, String address, int numResidents, String residentsWithDisabilities, String emergencyExits, String fireEquipment, String gasSupply, String electricitySupply, String waterSupply, Osbb osbb) {
         this.id = id;
         this.address = address;
+        this.numResidents = numResidents;
+        this.residentsWithDisabilities = residentsWithDisabilities;
+        this.emergencyExits = emergencyExits;
+        this.fireEquipment = fireEquipment;
+        this.gasSupply = gasSupply;
+        this.electricitySupply = electricitySupply;
+        this.waterSupply = waterSupply;
         this.osbb = osbb;
     }
 
@@ -48,5 +79,60 @@ public class Data {
 
     public void setOsbb(Osbb osbb) {
         this.osbb = osbb;
+    }
+
+    public void setNumResidents(int numResidents) {
+    }
+
+    public int getNumResidents() {
+        return numResidents;
+    }
+
+    public String getResidentsWithDisabilities() {
+        return residentsWithDisabilities;
+    }
+
+    public void setResidentsWithDisabilities(String residentsWithDisabilities) {
+        this.residentsWithDisabilities = residentsWithDisabilities;
+    }
+
+    public String getEmergencyExits() {
+        return emergencyExits;
+    }
+
+    public void setEmergencyExits(String emergencyExits) {
+        this.emergencyExits = emergencyExits;
+    }
+
+    public String getFireEquipment() {
+        return fireEquipment;
+    }
+
+    public void setFireEquipment(String fireEquipment) {
+        this.fireEquipment = fireEquipment;
+    }
+
+    public String getGasSupply() {
+        return gasSupply;
+    }
+
+    public void setGasSupply(String gasSupply) {
+        this.gasSupply = gasSupply;
+    }
+
+    public String getElectricitySupply() {
+        return electricitySupply;
+    }
+
+    public void setElectricitySupply(String electricitySupply) {
+        this.electricitySupply = electricitySupply;
+    }
+
+    public String getWaterSupply() {
+        return waterSupply;
+    }
+
+    public void setWaterSupply(String waterSupply) {
+        this.waterSupply = waterSupply;
     }
 }

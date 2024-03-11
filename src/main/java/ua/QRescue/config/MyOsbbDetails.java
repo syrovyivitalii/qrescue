@@ -37,6 +37,10 @@ public class MyOsbbDetails implements UserDetails {
         return "admin".equals(login);
     }
 
+    public int getUserId(){
+        return osbb.getId();
+    }
+
     @Override
     public String getPassword() {
         return osbb.getPassword();
