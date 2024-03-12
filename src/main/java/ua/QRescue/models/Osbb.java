@@ -1,5 +1,6 @@
 package ua.QRescue.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -12,7 +13,7 @@ public class Osbb {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "login")
+    @Column(name = "login",unique = true)
     @NotEmpty(message = "login must be entered")
     private String login;
 
@@ -21,10 +22,12 @@ public class Osbb {
     private String password;
 
     @OneToOne(mappedBy = "osbb")
+    @JsonIgnore
     private HeadOsbb headOSBB;
 
-    @OneToOne(mappedBy = "osbb")
-    private ua.QRescue.models.Data data;
+//    @OneToOne(mappedBy = "osbb")
+//    @JsonIgnore
+//    private ua.QRescue.models.Data data;
 
     public Osbb() {
     }
@@ -34,7 +37,7 @@ public class Osbb {
         this.login = login;
         this.password = password;
         this.headOSBB = headOSBB;
-        this.data = data;
+//        this.data = data;
     }
 
     public int getId() {
@@ -69,11 +72,11 @@ public class Osbb {
         this.headOSBB = headOSBB;
     }
 
-    public Data getData() {
-        return data;
-    }
+//    public Data getData() {
+//        return data;
+//    }
 
-    public void setData(Data data) {
-        this.data = data;
-    }
+//    public void setData(Data data) {
+//        this.data = data;
+//    }
 }
