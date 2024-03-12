@@ -37,9 +37,9 @@ public class Data {
     @Column(name = "watersupply")
     private String waterSupply;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    @JsonIgnore
+    @Transient
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id", referencedColumnName = "id")
     private Osbb osbb;
     public Data() {
     }
