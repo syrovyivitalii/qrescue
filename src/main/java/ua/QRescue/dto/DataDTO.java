@@ -16,6 +16,7 @@ public class DataDTO {
     private String electricitySupply;
     private String waterSupply;
 
+
     public DataDTO() {
     }
     //other form fields
